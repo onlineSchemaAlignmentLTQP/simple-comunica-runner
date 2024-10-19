@@ -11,14 +11,14 @@ const docker = new Docker();
 const program = new Command();
 program
   .name('evaluation')
-  .description('CLI program to run a TREE evaluation')
+  .description('CLI program to run a SPARQL query using Comunica for the context of benchmarking')
   .version('0.0.0')
 
   .requiredOption('-q, --query <string>', 'query to execute')
   
   .option('-c, --config <string>', 'File path of the config')
   .option('-t, --timeout <number>', 'Timeout of the query in second', 120 * 1000)
-  .option('-hdt', '--path-fragmentation <string>', 'File path of the dataset')
+  .option('-hdt, --pathFragmentation <string>', 'The file path of the dataset for querying over HDT. When not specified, it will execute an LTQP query.')
 
   .parse(process.argv);
 
@@ -53,7 +53,7 @@ async function getImage() {
 }
 
 async function executeHdtQuery(query, timeout) {
-  getImage();
+  await getImage();
 
   const timeoutID = setTimeout(() => {
     console.log('Query timeout');

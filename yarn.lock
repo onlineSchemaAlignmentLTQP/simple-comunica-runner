@@ -4412,6 +4412,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "commander@npm:12.1.0"
+  checksum: 10c0/6e1996680c083b3b897bfc1cfe1c58dfbcd9842fd43e1aaf8a795fbc237f65efcc860a3ef457b318e73f29a4f4a28f6403c3d653d021d960e4632dd45bde54a9
+  languageName: node
+  linkType: hard
+
 "componentsjs@npm:^6.0.1":
   version: 6.2.0
   resolution: "componentsjs@npm:6.2.0"
@@ -4435,14 +4442,6 @@ __metadata:
   checksum: 10c0/6836e2a619023830df77b6cc36dfcbf3222439a76c6a6d5dc41ea68835b44adeb158f99516445937764d7c3dae9e0112fc02b6bf51d3a25b79cd84c57a80175b
   languageName: node
   linkType: hard
-
-"comunica_runner@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "comunica_runner@workspace:."
-  dependencies:
-    dockerode: "npm:^4.0.2"
-  languageName: unknown
-  linkType: soft
 
 "concat-map@npm:0.0.1":
   version: 0.0.1
@@ -6279,6 +6278,15 @@ __metadata:
   checksum: 10c0/df5e4662a8c750bdba69af4e8263c5d96fe4cd0f9fe4bdfa3cbdeb45d2e869dff640beaaeb1ef0e99db4d8d2ec92f85508c269f50c972174851bc1ae5bd64308
   languageName: node
   linkType: hard
+
+"simple_comunica_runner@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "simple_comunica_runner@workspace:."
+  dependencies:
+    commander: "npm:^12.1.0"
+    dockerode: "npm:^4.0.2"
+  languageName: unknown
+  linkType: soft
 
 "smart-buffer@npm:^4.2.0":
   version: 4.2.0

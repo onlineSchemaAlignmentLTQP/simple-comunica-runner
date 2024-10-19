@@ -1,14 +1,12 @@
 {
-  "name": "comunica_runner",
+  "name": "simple_comunica_runner",
   "packageManager": "yarn@4.1.1",
   "workspaces": [
     "comunica-feature-link-traversal/engines/*",
     "comunica-feature-link-traversal/packages/*"
   ],
-  "scripts": {
-    "initialize-comunica": "cd comunica-feature-link-traversal && yarn install cd .."
-  },
   "dependencies": {
+    "commander": "^12.1.0",
     "dockerode": "^4.0.2"
   }
 }

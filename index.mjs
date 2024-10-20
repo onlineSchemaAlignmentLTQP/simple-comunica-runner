@@ -4,8 +4,13 @@ import Docker from 'dockerode';
 import { PassThrough } from 'node:stream';
 import streamToString from 'stream-to-string';
 import { Command } from 'commander';
+import * as path from 'node:path';
+
 
 const COMUNICA_HDT_IMAGE = "comunica/query-sparql-hdt:latest";
+const REGEX_SUMMARY = /(TOTAL),([+-]?[0-9]*[.]?[0-9]+),([0-9]+)/;
+const REGEX_RESULT = /(\d+),(\d+\.\d*),(\d)/;
+
 const docker = new Docker();
 
 const program = new Command();
@@ -15,10 +20,10 @@ program
   .version('0.0.0')
 
   .requiredOption('-q, --query <string>', 'query to execute')
-  
+
   .option('-c, --config <string>', 'File path of the config')
   .option('-t, --timeout <number>', 'Timeout of the query in second', 120 * 1000)
-  .option('-hdt, --pathFragmentation <string>', 'The file path of the dataset for querying over HDT. When not specified, it will execute an LTQP query.')
+  .option('-hdt, --pathFragmentationFolder <string>', 'The path of the dataset folder for querying over HDT. When not specified, it will execute an LTQP query.')
 
   .parse(process.argv);
 
@@ -26,14 +31,14 @@ const options = program.opts();
 const config = options.config;
 const query = options.query;
 const timeout = Number(options.timeout) * 1000;
-const pathFragmentation = options.pathFragmentation; 
+const pathFragmentation = options.pathFragmentationFolder;
 
 try {
   let resp;
-  if(pathFragmentation !== undefined){
-    resp = await executeQuery(config, query, timeout);
-  }else{
+  if (pathFragmentation !== undefined) {
     resp = await executeHdtQuery(query, timeout)
+  } else {
+    resp = await executeQuery(config, query, timeout);
   }
   console.log("response start");
   console.log(JSON.stringify(resp));
@@ -44,7 +49,10 @@ try {
 }
 
 async function getImage() {
-  await new Promise((resolve, reject) => docker.pull(COMUNICA_HDT_IMAGE, {}, (error, result) => {
+  function onProgress(event) {
+    console.log(event);
+  }
+  return new Promise((resolve, reject) => docker.pull(COMUNICA_HDT_IMAGE, {}, (error, result) => {
     if (error) {
       reject(error);
     }
@@ -57,12 +65,10 @@ async function executeHdtQuery(query, timeout) {
 
   const timeoutID = setTimeout(() => {
     console.log('Query timeout');
-    resolve(
-      {
-        results: "TIMEOUT",
-        execution_time: `TIMEOUT ${timeout}`
-      }
-    );
+    return {
+      results: "TIMEOUT",
+      execution_time: `TIMEOUT ${timeout}`
+    };
   }, timeout);
 
   const cmd = [
@@ -76,7 +82,7 @@ async function executeHdtQuery(query, timeout) {
     Tty: false,
     HostConfig: {
       AutoRemove: true,
-      Binds: [`${resolve(pathFragmentation)}:/data:rw`],
+      Binds: [`${path.resolve(pathFragmentation)}:/data:rw`],
     },
     Entrypoint: ["node", "--max-old-space-size=16000", "./bin/query.js"]
   };
@@ -94,19 +100,36 @@ async function executeHdtQuery(query, timeout) {
   clearTimeout(timeoutID);
 
   if (cmdResult[0].StatusCode) {
-    resolve(
-      {
-        results: passThroughErrToString,
-      }
-    );
-    return;
-  }
-  resolve(
-    {
-      results: passThroughToString,
+    console.log(passThroughErrToString);
+    return {
+      results: await passThroughErrToString,
     }
-  );
-  
+
+  }
+  return parseStatResult(await passThroughToString);
+}
+
+function parseStatResult(result) {
+  const resultArray = result.split("\n");
+  const results = [];
+  let executionTime;
+
+  for (const result of resultArray) {
+    if (REGEX_RESULT.test(result)) {
+      let tag = (result).match(REGEX_RESULT);
+      results.push({
+        _arrival_time: Number(tag[2])
+      });
+    }
+    if (REGEX_SUMMARY.test(result)) {
+      let tag = (result).match(REGEX_SUMMARY);
+      executionTime = Number(tag[2]);
+    }
+  }
+  return {
+    results,
+    execution_time: executionTime
+  };
 }
 
 async function executeQuery(configPath, query, timeout) {
@@ -141,7 +164,7 @@ async function executeQuery(configPath, query, timeout) {
       results.push(
         {
           ...result,
-          arrival_time: arrival- start
+          _arrival_time: arrival - start
         }
       );
     });

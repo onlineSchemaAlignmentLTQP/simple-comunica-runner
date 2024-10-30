@@ -21,6 +21,7 @@ program
 
   .requiredOption('-q, --query <string>', 'query to execute')
 
+  .option('-w, --warmup <number>', 'number of warm up')
   .option('-c, --config <string>', 'File path of the config')
   .option('-t, --timeout <number>', 'Timeout of the query in second', 120 * 1000)
   .option('-hdt, --pathFragmentationFolder <string>', 'The path of the dataset folder for querying over HDT. When not specified, it will execute an LTQP query.')
@@ -32,12 +33,21 @@ const config = options.config;
 const query = options.query;
 const timeout = Number(options.timeout) * 1000;
 const pathFragmentation = options.pathFragmentationFolder;
+const warmup = options.warmup;
+
+const WARM_UP_QUERY = 'SELECT * WHERE {?s ?p ?o} LIMIT 1'
+
 
 try {
   let resp;
   if (pathFragmentation !== undefined) {
     resp = await executeHdtQuery(query, timeout)
   } else {
+    if (warmup !== undefined) {
+      for (let i = 0; i < warmup; i++) {
+        await executeQuery(config, WARM_UP_QUERY, timeout);
+      }
+    }
     resp = await executeQuery(config, query, timeout);
   }
   console.log("response start");

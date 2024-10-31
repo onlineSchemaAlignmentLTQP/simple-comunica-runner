@@ -22,6 +22,7 @@ program
   .requiredOption('-q, --query <string>', 'query to execute')
 
   .option('-w, --warmup <number>', 'number of warm up')
+  .option('-wc, --warmupSource <string>', 'the source for the warm up rounds', "http://localhost:3000/dbpedia.org/resource/Aachen")
   .option('-c, --config <string>', 'File path of the config')
   .option('-t, --timeout <number>', 'Timeout of the query in second', 120 * 1000)
   .option('-hdt, --pathFragmentationFolder <string>', 'The path of the dataset folder for querying over HDT. When not specified, it will execute an LTQP query.')
@@ -34,8 +35,9 @@ const query = options.query;
 const timeout = Number(options.timeout) * 1000;
 const pathFragmentation = options.pathFragmentationFolder;
 const warmup = options.warmup;
+const warmupSource = options.warmupSource;
 
-const WARM_UP_QUERY = 'SELECT * WHERE {?s ?p ?o} LIMIT 1'
+const WARM_UP_QUERY = 'SELECT * WHERE {?s ?p ?o} LIMIT 1';
 
 
 try {
@@ -45,7 +47,7 @@ try {
   } else {
     if (warmup !== undefined) {
       for (let i = 0; i < warmup; i++) {
-        await executeQuery(config, WARM_UP_QUERY, timeout);
+        await executeQuery(config, WARM_UP_QUERY, timeout, warmupSource);
       }
     }
     resp = await executeQuery(config, query, timeout);
@@ -142,7 +144,7 @@ function parseStatResult(result) {
   };
 }
 
-async function executeQuery(configPath, query, timeout) {
+async function executeQuery(configPath, query, timeout, warmupSource = undefined) {
   return new Promise(async (resolve, reject) => {
     const engine = await new QueryEngineFactory().create({ configPath });
     const results = [];
@@ -162,6 +164,7 @@ async function executeQuery(configPath, query, timeout) {
       bindingsStream = await engine.queryBindings(query, {
         lenient: true,
         log: new LoggerPretty({ level: 'trace' }),
+        sources: warmupSource !== undefined ? [warmupSource] : []
       });
     } catch (err) {
       reject(err);

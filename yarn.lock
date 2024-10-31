@@ -302,7 +302,7 @@ __metadata:
     jsonld-context-parser: "npm:^2.4.0"
     jsonld-streaming-parser: "npm:^3.3.0"
     n3: "npm:^1.17.2"
-    query-shape-detection: "npm:^0.2.0"
+    query-shape-detection: "npm:^0.2.3"
     rdf-data-factory: "npm:^1.1.2"
   languageName: unknown
   linkType: soft
@@ -5834,7 +5834,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"query-shape-detection@npm:^0.2.0":
+"query-shape-detection@npm:^0.2.3":
   version: 0.2.3
   resolution: "query-shape-detection@npm:0.2.3"
   dependencies:

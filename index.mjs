@@ -1,5 +1,6 @@
 import { QueryEngineFactory } from "@comunica/query-sparql-link-traversal-solid";
 import { LoggerPretty } from '@comunica/logger-pretty';
+import { LoggerVoid } from '@comunica/logger-void';
 import Docker from 'dockerode';
 import { PassThrough } from 'node:stream';
 import streamToString from 'stream-to-string';
@@ -158,12 +159,12 @@ async function executeQuery(configPath, query, timeout, warmupSource = undefined
       );
     }, timeout);
     let bindingsStream;
-    const start = new Date().getTime();
+    const start = performance.now();
 
     try {
       bindingsStream = await engine.queryBindings(query, {
         lenient: true,
-        log: new LoggerPretty({ level: 'trace' }),
+        log: warmupSource === undefined ? new LoggerPretty({ level: 'trace' }) : new LoggerVoid(),
         sources: warmupSource !== undefined ? [warmupSource] : []
       });
     } catch (err) {
@@ -173,7 +174,7 @@ async function executeQuery(configPath, query, timeout, warmupSource = undefined
 
     bindingsStream.on('data', (binding) => {
       const result = JSON.parse(binding.toString());
-      const arrival = new Date().getTime();
+      const arrival = performance.now();
       results.push(
         {
           ...result,
@@ -194,7 +195,7 @@ async function executeQuery(configPath, query, timeout, warmupSource = undefined
     });
 
     bindingsStream.on('end', () => {
-      const end = new Date().getTime();
+      const end = performance.now();
       clearTimeout(timeoutID);
       resolve(
         {

@@ -24,6 +24,7 @@ program
 
   .option('-w, --warmup <number>', 'number of warm up')
   .option('-wc, --warmupSource <string>', 'the source for the warm up rounds', "http://localhost:3000/dbpedia.org/resource/Aachen")
+  .option('-s, --sources <string>', undefined)
   .option('-c, --config <string>', 'File path of the config')
   .option('-t, --timeout <number>', 'Timeout of the query in second', 120 * 1000)
   .option('-hdt, --pathFragmentationFolder <string>', 'The path of the dataset folder for querying over HDT. When not specified, it will execute an LTQP query.')
@@ -37,6 +38,7 @@ const timeout = Number(options.timeout) * 1000;
 const pathFragmentation = options.pathFragmentationFolder;
 const warmup = options.warmup;
 const warmupSource = options.warmupSource;
+const sources = options.sources !== undefined ? JSON.parse(options.sources) : undefined;
 
 const WARM_UP_QUERY = 'SELECT * WHERE {?s ?p ?o} LIMIT 1';
 
@@ -145,7 +147,7 @@ function parseStatResult(result) {
   };
 }
 
-async function executeQuery(configPath, query, timeout, warmupSource = undefined) {
+async function executeQuery(configPath, query, timeout, warmupSource = undefined, sources = undefined) {
   return new Promise(async (resolve, reject) => {
     const engine = await new QueryEngineFactory().create({ configPath });
     const results = [];
@@ -160,12 +162,19 @@ async function executeQuery(configPath, query, timeout, warmupSource = undefined
     }, timeout);
     let bindingsStream;
     const start = performance.now();
-
+    
+    let engineSources = [];
+    if (warmupSource !== undefined) {
+      engineSources = [warmupSource];
+    }
+    if (sources !== undefined) {
+      engineSources = sources;
+    }
     try {
       bindingsStream = await engine.queryBindings(query, {
         lenient: true,
         log: warmupSource === undefined ? new LoggerPretty({ level: 'trace' }) : new LoggerVoid(),
-        sources: warmupSource !== undefined ? [warmupSource] : []
+        sources: engineSources
       });
     } catch (err) {
       reject(err);

@@ -53,7 +53,7 @@ try {
         await executeQuery(config, WARM_UP_QUERY, timeout, warmupSource);
       }
     }
-    resp = await executeQuery(config, query, timeout);
+    resp = await executeQuery(config, query, timeout, undefined, sources);
   }
   console.log("response start");
   console.log(JSON.stringify(resp));
@@ -162,7 +162,7 @@ async function executeQuery(configPath, query, timeout, warmupSource = undefined
     }, timeout);
     let bindingsStream;
     const start = performance.now();
-    
+
     let engineSources = [];
     if (warmupSource !== undefined) {
       engineSources = [warmupSource];

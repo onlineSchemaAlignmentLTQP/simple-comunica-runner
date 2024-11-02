@@ -1,4 +1,4 @@
 [submodule "comunica-feature-link-traversal"]
 	path = comunica-feature-link-traversal
 	url = https://github.com/constraintAutomaton/comunica-feature-link-traversal.git
-	branch = feature/feature/shapeIndex
+	branch = feature/shapeIndex

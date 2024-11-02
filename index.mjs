@@ -189,7 +189,6 @@ async function executeQuery(configPath, query, timeout, warmupSource = undefined
       reject(err);
     }
 
-
     bindingsStream.on('data', (binding) => {
       const result = JSON.parse(binding.toString());
       const arrival = performance.now();

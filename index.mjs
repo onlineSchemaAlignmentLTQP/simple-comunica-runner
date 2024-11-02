@@ -1,5 +1,5 @@
 import { QueryEngineFactory } from "@comunica/query-sparql-link-traversal-solid";
-import { LoggerPretty } from '@comunica/logger-pretty';
+import { LoggerBunyan, BunyanStreamProviderStdout } from "@comunica/logger-bunyan";
 import { LoggerVoid } from '@comunica/logger-void';
 import Docker from 'dockerode';
 import { PassThrough } from 'node:stream';
@@ -162,9 +162,17 @@ async function executeQuery(configPath, query, timeout, warmupSource = undefined
     const start = performance.now();
 
     try {
+      const streamProvider = new BunyanStreamProviderStdout({ level: 'info' });
+      const loggerParams = {
+        name: 'comunica',
+        level: 'info',
+        streamProviders: [streamProvider],
+      };
+      const logger = new LoggerBunyan(loggerParams);
+
       bindingsStream = await engine.queryBindings(query, {
         lenient: true,
-        log: warmupSource === undefined ? new LoggerPretty({ level: 'trace' }) : new LoggerVoid(),
+        log: warmupSource === undefined ? logger : new LoggerVoid(),
         sources: warmupSource !== undefined ? [warmupSource] : []
       });
     } catch (err) {

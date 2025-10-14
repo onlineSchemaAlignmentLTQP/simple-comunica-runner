@@ -7,6 +7,8 @@
   ],
   "dependencies": {
     "commander": "^12.1.0",
-    "dockerode": "^4.0.2"
+    "dockerode": "^4.0.2",
+    "rdf-parse": "^4.0.0",
+    "streamify-string": "^1.0.1"
   }
 }

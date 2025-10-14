@@ -6,7 +6,9 @@ import { PassThrough } from 'node:stream';
 import streamToString from 'stream-to-string';
 import { Command } from 'commander';
 import * as path from 'node:path';
-
+import { rdfParser } from "rdf-parse";
+import { readFile } from "node:fs/promises";
+import Streamify from "streamify-string";
 
 const COMUNICA_HDT_IMAGE = "comunica/query-sparql-hdt:latest";
 const REGEX_SUMMARY = /(TOTAL),([+-]?[0-9]*[.]?[0-9]+),([0-9]+)/;
@@ -27,6 +29,7 @@ program
   .option('-s, --sources <string>', undefined)
   .option('-c, --config <string>', 'File path of the config')
   .option('-t, --timeout <number>', 'Timeout of the query in second', 120 * 1000)
+  .option('-r, --rules <string>', 'path of a rule KG', undefined)
   .option('-hdt, --pathFragmentationFolder <string>', 'The path of the dataset folder for querying over HDT. When not specified, it will execute an LTQP query.')
 
   .parse(process.argv);
@@ -39,6 +42,26 @@ const pathFragmentation = options.pathFragmentationFolder;
 const warmup = options.warmup;
 const warmupSource = options.warmupSource;
 const sources = options.sources !== undefined ? JSON.parse(options.sources) : undefined;
+const rulePath = options.rules;
+const rules = [];
+
+if(rulePath!==undefined){
+  const stringKg = await readFile(rulePath,'utf-8');
+  const streamKg = Streamify(stringKg);
+  await new Promise((resolve, reject)=>{
+    rdfParser.parse(streamKg, { contentType: 'text/turtle'})
+    .on('data', (quad) => {
+      rules.push(quad);
+    })
+    .on('error', (error) => {
+      reject(error);
+    })
+    .on('end', () => {
+      resolve();
+    });
+  });
+  
+}
 
 const WARM_UP_QUERY = 'SELECT * WHERE {?s ?p ?o} LIMIT 1';
 
@@ -182,6 +205,9 @@ async function executeQuery(configPath, query, timeout, warmupSource = undefined
 
       bindingsStream = await engine.queryBindings(query, {
         lenient: true,
+        "@comunica/actor-context-preprocess-query-source-reasoning:rules": new Map([
+          ["*", rules]
+        ]),
         log: warmupSource === undefined ? logger : new LoggerVoid(),
         sources: engineSources
       });

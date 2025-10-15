@@ -1,13 +1,10 @@
 {
   "name": "simple_comunica_runner",
   "packageManager": "yarn@4.1.1",
-  "workspaces": [
-    "comunica-feature-link-traversal/engines/*",
-    "comunica-feature-link-traversal/packages/*"
-  ],
   "dependencies": {
     "@comunica/logger-bunyan": "^4.4.0",
     "@comunica/logger-void": "^4.4.0",
+    "@comunica/query-sparql-link-traversal-solid": "file:./comunica-feature-link-traversal/engines/query-sparql-link-traversal-solid",
     "commander": "^12.1.0",
     "dockerode": "^4.0.2",
     "rdf-parse": "^4.0.0",

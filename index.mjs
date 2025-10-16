@@ -1,4 +1,4 @@
-import { QueryEngineFactory } from "@comunica/query-sparql-link-traversal-solid";
+import { QueryEngineFactory } from "query-sparql-link-traversal-solid-schema-alignment";
 import { LoggerBunyan, BunyanStreamProviderStdout } from "@comunica/logger-bunyan";
 import { LoggerVoid } from '@comunica/logger-void';
 import Docker from 'dockerode';

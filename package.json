@@ -4,9 +4,10 @@
   "dependencies": {
     "@comunica/logger-bunyan": "^4.4.0",
     "@comunica/logger-void": "^4.4.0",
-    "@comunica/query-sparql-link-traversal-solid": "file:./comunica-feature-link-traversal/engines/query-sparql-link-traversal-solid",
+    "actor-query-source-identify-hypermedia-schema-alignment": "latest",
     "commander": "^12.1.0",
     "dockerode": "^4.0.2",
+    "query-sparql-link-traversal-solid-schema-alignment": "latest",
     "rdf-parse": "^4.0.0",
     "stream-to-string": "^1.2.1",
     "streamify-string": "^1.0.1"

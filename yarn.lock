@@ -3904,15 +3904,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@comunica/mediator-combine-array@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "@comunica/mediator-combine-array@npm:0.7.0"
-  dependencies:
-    "@comunica/core": "npm:^4.2.0"
-  checksum: 10c0/a0f9e38f47b4a9361d724cebaf66eab8e962783f93061981d15bce807a1ff8e947f8da687668a1839358ed69c19668a45084e4a38299f114e52e1479bfa15765
-  languageName: node
-  linkType: hard
-
 "@comunica/mediator-combine-pipeline@npm:^2.0.1":
   version: 2.10.0
   resolution: "@comunica/mediator-combine-pipeline@npm:2.10.0"
@@ -4850,11 +4841,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:>=13.7.0":
-  version: 24.7.2
-  resolution: "@types/node@npm:24.7.2"
+  version: 24.9.1
+  resolution: "@types/node@npm:24.9.1"
   dependencies:
-    undici-types: "npm:~7.14.0"
-  checksum: 10c0/03f662f10e4b89bc97016e067101cbabe55025b54c24afb581fb50992d5eeaaf417bdae34bbc668ae8759d3cdbbbadf35fc8b9b29d26f52ede2525d48e919e49
+    undici-types: "npm:~7.16.0"
+  checksum: 10c0/c52f8168080ef9a7c3dc23d8ac6061fab5371aad89231a0f6f4c075869bc3de7e89b075b1f3e3171d9e5143d0dda1807c3dab8e32eac6d68f02e7480e7e78576
   languageName: node
   linkType: hard
 
@@ -6110,6 +6101,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mediator-combine-array-schema-alignment@npm:latest":
+  version: 0.0.0
+  resolution: "mediator-combine-array-schema-alignment@npm:0.0.0"
+  dependencies:
+    "@comunica/core": "npm:^4.4.0"
+  checksum: 10c0/d1bc4be8545362abae749e935555011663a9b9f4242a8fc73885cf053e46d988d0494e1e814789ddcdbde008502bc45457e5bf51be69775569341aa94eb880ba
+  languageName: node
+  linkType: hard
+
 "microdata-rdf-streaming-parser@npm:^2.0.1":
   version: 2.0.1
   resolution: "microdata-rdf-streaming-parser@npm:2.0.1"
@@ -6530,8 +6530,8 @@ __metadata:
   linkType: hard
 
 "query-sparql-link-traversal-solid-schema-alignment@npm:latest":
-  version: 0.0.0
-  resolution: "query-sparql-link-traversal-solid-schema-alignment@npm:0.0.0"
+  version: 0.0.1
+  resolution: "query-sparql-link-traversal-solid-schema-alignment@npm:0.0.1"
   dependencies:
     "@comunica/actor-bindings-aggregator-factory-average": "npm:^4.4.0"
     "@comunica/actor-bindings-aggregator-factory-count": "npm:^4.4.0"
@@ -6774,7 +6774,6 @@ __metadata:
     "@comunica/core": "npm:^4.4.0"
     "@comunica/logger-void": "npm:^4.4.0"
     "@comunica/mediator-all": "npm:^4.4.0"
-    "@comunica/mediator-combine-array": "npm:^0.7.0"
     "@comunica/mediator-combine-pipeline": "npm:^4.4.0"
     "@comunica/mediator-combine-union": "npm:^4.4.0"
     "@comunica/mediator-join-coefficients-fixed": "npm:^4.4.0"
@@ -6785,12 +6784,13 @@ __metadata:
     "@comunica/runner-cli": "npm:^4.4.0"
     "@comunica/types": "npm:^4.4.0"
     actor-query-source-identify-hypermedia-schema-alignment: "npm:latest"
+    mediator-combine-array-schema-alignment: "npm:latest"
     yargs: "npm:^17.7.2"
   bin:
     comunica-dynamic-sparql-link-traversal-solid: bin/query-dynamic.js
     comunica-sparql-link-traversal-solid: bin/query.js
     comunica-sparql-link-traversal-solid-http: bin/http.js
-  checksum: 10c0/ceee407048b807bebc3367d4e5e500d79bf7f49265f283fd29213cf608056ef348608175b7e9092c521aff1b5d6bf1ebb0c1f717c11342dae13d72fb57453f92
+  checksum: 10c0/f0cdaa586e2d7339ca49b54f5b022757354548273fee1af922214b9f898a2072f445ae82c14113b53ed3222c18186bf3100e1218a05fac4617780eea86e58ffb
   languageName: node
   linkType: hard
 
@@ -7259,6 +7259,7 @@ __metadata:
     actor-query-source-identify-hypermedia-schema-alignment: "npm:latest"
     commander: "npm:^12.1.0"
     dockerode: "npm:^4.0.2"
+    mediator-combine-array-schema-alignment: "npm:latest"
     query-sparql-link-traversal-solid-schema-alignment: "npm:latest"
     rdf-parse: "npm:^4.0.0"
     stream-to-string: "npm:^1.2.1"
@@ -7595,10 +7596,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~7.14.0":
-  version: 7.14.0
-  resolution: "undici-types@npm:7.14.0"
-  checksum: 10c0/e7f3214b45d788f03c51ceb33817be99c65dae203863aa9386b3ccc47201a245a7955fc721fb581da9c888b6ebad59fa3f53405214afec04c455a479908f0f14
+"undici-types@npm:~7.16.0":
+  version: 7.16.0
+  resolution: "undici-types@npm:7.16.0"
+  checksum: 10c0/3033e2f2b5c9f1504bdc5934646cb54e37ecaca0f9249c983f7b1fc2e87c6d18399ebb05dc7fd5419e02b2e915f734d872a65da2e3eeed1813951c427d33cc9a
   languageName: node
   linkType: hard
 

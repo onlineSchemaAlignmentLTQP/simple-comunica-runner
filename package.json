@@ -7,6 +7,7 @@
     "actor-query-source-identify-hypermedia-schema-alignment": "latest",
     "commander": "^12.1.0",
     "dockerode": "^4.0.2",
+    "mediator-combine-array-schema-alignment": "latest",
     "query-sparql-link-traversal-solid-schema-alignment": "latest",
     "rdf-parse": "^4.0.0",
     "stream-to-string": "^1.2.1",

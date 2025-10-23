@@ -6102,11 +6102,11 @@ __metadata:
   linkType: hard
 
 "mediator-combine-array-schema-alignment@npm:latest":
-  version: 0.0.0
-  resolution: "mediator-combine-array-schema-alignment@npm:0.0.0"
+  version: 0.0.1
+  resolution: "mediator-combine-array-schema-alignment@npm:0.0.1"
   dependencies:
     "@comunica/core": "npm:^4.4.0"
-  checksum: 10c0/d1bc4be8545362abae749e935555011663a9b9f4242a8fc73885cf053e46d988d0494e1e814789ddcdbde008502bc45457e5bf51be69775569341aa94eb880ba
+  checksum: 10c0/389075c7ef680b9f44686e55b4e23876e29c8b1530ae2ce6e212504aee84dd79c9ad85313eed01af20097bfac4efe53941f0855a64c92a105324095e595ab97b
   languageName: node
   linkType: hard
 

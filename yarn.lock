@@ -4831,12 +4831,12 @@ __metadata:
   linkType: hard
 
 "@types/n3@npm:^1.0.0, @types/n3@npm:^1.10.4":
-  version: 1.26.0
-  resolution: "@types/n3@npm:1.26.0"
+  version: 1.26.1
+  resolution: "@types/n3@npm:1.26.1"
   dependencies:
     "@rdfjs/types": "npm:*"
     "@types/node": "npm:*"
-  checksum: 10c0/2a7fc68713cb79657e3bd7204250fb55d52c81b63523d67aa1fc872b12c310e214f91215d5619cd01272de41820dc2202311531516808345d53752f358d00d5b
+  checksum: 10c0/4797463efdf0e8425074bb0301ae1b83d7e04b39e3fc584e4e0f69e772883c6ef517983a764c7f9357bcefae42d978d1e857264ec5ecab643157d2f4f555fd17
   languageName: node
   linkType: hard
 
@@ -4869,11 +4869,11 @@ __metadata:
   linkType: hard
 
 "@types/readable-stream@npm:^4.0.0, @types/readable-stream@npm:^4.0.15":
-  version: 4.0.21
-  resolution: "@types/readable-stream@npm:4.0.21"
+  version: 4.0.22
+  resolution: "@types/readable-stream@npm:4.0.22"
   dependencies:
     "@types/node": "npm:*"
-  checksum: 10c0/5c0a69a994d7efb8de6c27a626a5353b0d5d510979dd6bddc344d3fe54630ad175bf5fafe48eeaa9f423cf22d60247d0b20264aad68ced2eb49318b071168fed
+  checksum: 10c0/92cfee9362ddea15ef0d2a5daf71ce0cb035a8556432428479eaaf2ef73b3dd345fa08b81cfa7eefe805eff48f9f81b297c46cc8ff2a77b49b013876bc02216e
   languageName: node
   linkType: hard
 
@@ -4929,11 +4929,11 @@ __metadata:
   linkType: hard
 
 "@types/yargs@npm:^17.0.24":
-  version: 17.0.33
-  resolution: "@types/yargs@npm:17.0.33"
+  version: 17.0.34
+  resolution: "@types/yargs@npm:17.0.34"
   dependencies:
     "@types/yargs-parser": "npm:*"
-  checksum: 10c0/d16937d7ac30dff697801c3d6f235be2166df42e4a88bf730fa6dc09201de3727c0a9500c59a672122313341de5f24e45ee0ff579c08ce91928e519090b7906b
+  checksum: 10c0/7d4c6a6bc2b8dd4c7deaf507633fe6fd91424873add76b63c8263479223ea7a061bea86e7e0f3ed28cbe897338a934f3c04d802e8f67b7d2d3874924c94468c5
   languageName: node
   linkType: hard
 
@@ -7359,14 +7359,14 @@ __metadata:
   linkType: hard
 
 "sparqljson-parse@npm:^3.0.0":
-  version: 3.1.0
-  resolution: "sparqljson-parse@npm:3.1.0"
+  version: 3.3.0
+  resolution: "sparqljson-parse@npm:3.3.0"
   dependencies:
     "@bergos/jsonparse": "npm:^1.4.1"
     "@types/readable-stream": "npm:^4.0.0"
     rdf-data-factory: "npm:^2.0.0"
     readable-stream: "npm:^4.0.0"
-  checksum: 10c0/520d7ed09ed8980ffc5e954886c35a914d5163f3700f585bd8bbc974736d35396ae50f9ed88d1772b1abfd47c56ad2c6af04837cd49cdbe70650399dea0e1c20
+  checksum: 10c0/9e48b7c026bae2ea83dff6f545baed3cc9609c2b9d7540271e8b0f8501d46e680bfdaef408287ea5ccc3d8b595bb4f985a8730851c237b1b5dfe269f7e91ba81
   languageName: node
   linkType: hard
 
@@ -7382,15 +7382,15 @@ __metadata:
   linkType: hard
 
 "sparqlxml-parse@npm:^3.0.0":
-  version: 3.1.0
-  resolution: "sparqlxml-parse@npm:3.1.0"
+  version: 3.3.0
+  resolution: "sparqlxml-parse@npm:3.3.0"
   dependencies:
     "@rubensworks/saxes": "npm:^6.0.1"
     "@types/readable-stream": "npm:^4.0.0"
     buffer: "npm:^6.0.3"
     rdf-data-factory: "npm:^2.0.0"
     readable-stream: "npm:^4.5.2"
-  checksum: 10c0/f3bb70a23ede7b34b3074277a89c3dcef1cab7501acd93c47ee0bb8c6876a7914515754cf4efa644ac9315709044e10a7ebfbac813e8c571261f9d910cab18eb
+  checksum: 10c0/602417d0de8ede1152399b98462ee65f4d2c7d2d5ea43bcd3ed38e587958d45f93902a50f8c56ca60d88bf9b39bca4e8c4e2944c97f47e2d0703e04ef1718d01
   languageName: node
   linkType: hard
 
